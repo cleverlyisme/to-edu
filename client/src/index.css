@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.react-calendar {
+    width: 100%;
+}
