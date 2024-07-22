@@ -1,59 +1,69 @@
-const express = require("express")
-const auth = require("../middlewares/auth")
+const express = require("express");
+const auth = require("../middlewares/auth");
 
-const { authAdmin, authTeacherStudent, authTeacher } = auth
+const { authAdmin, authTeacherStudent, authTeacher } = auth;
 
-const router = express.Router()
+const router = express.Router();
 
-const controller = require("../controllers/user.controller")
+const controller = require("../controllers/user.controller");
 
-router.get("/getAllUser", authAdmin, controller.getAllUser)
+router.get("/getAllUser", authAdmin, controller.getAllUser);
 
-router.delete("/:role/:id", authAdmin, controller.deleteUser)
+router.delete("/:role/:id", authAdmin, controller.deleteUser);
 
-router.post("/student/create", authAdmin, controller.createStudent)
+router.delete("/student/fee/:id", authAdmin, controller.deleteFee);
 
-router.get("/student/:id", controller.getStudent)
+router.post("/student/create", authAdmin, controller.createStudent);
 
-router.put("/student/:id", authAdmin, controller.updateStudent)
+router.get("/fees", authAdmin, controller.getAllFees);
 
-router.get("/teacher/:id", controller.getTeacher)
+router.get("/student/:id/fees", controller.getStudentFees);
 
-router.post("/teacher/create", authAdmin, controller.createTeacher)
+router.post("/student/fee/create", authAdmin, controller.createFee);
 
-router.put("/teacher/:id", authAdmin, controller.updateTeacher)
+router.get("/student/fee/:id", authAdmin, controller.getFee);
 
-router.put("/profile/:role/:id", authTeacherStudent, controller.updateProfile)
+router.put("/student/fee/:id", authAdmin, controller.updateFee);
 
-router.get("/students", authTeacher, controller.teacherGetAllStudent)
+router.get("/student/:id", controller.getStudent);
 
-router.post("/student/transcript", authTeacher, controller.updateTranscript)
+router.put("/student/:id", authAdmin, controller.updateStudent);
+
+router.post("/teacher/create", authAdmin, controller.createTeacher);
+
+router.put("/teacher/:id", authAdmin, controller.updateTeacher);
+
+router.put("/profile/:role/:id", authTeacherStudent, controller.updateProfile);
+
+router.get("/students", authTeacher, controller.teacherGetAllStudent);
+
+router.post("/student/transcript", authTeacher, controller.updateTranscript);
 
 router.post(
-    "/student/sendMessageToMainTeacher",
-    controller.sendMessageToMainTeacher
-)
+  "/student/sendMessageToMainTeacher",
+  controller.sendMessageToMainTeacher
+);
 
-router.post("/changePassword", controller.changePassword)
+router.post("/changePassword", controller.changePassword);
 
-router.post("/updateStudentNote", authTeacher, controller.updateStudentNote)
+router.post("/updateStudentNote", authTeacher, controller.updateStudentNote);
 
 router.post(
-    "/finalTranscriptSubject",
-    authTeacher,
-    controller.finalTransriptSubject
-)
+  "/finalTranscriptSubject",
+  authTeacher,
+  controller.finalTransriptSubject
+);
 
-router.post("/updateConduct", authTeacher, controller.updateConduct)
+router.post("/updateConduct", authTeacher, controller.updateConduct);
 
-router.get("/getSemesterResult", authAdmin, controller.getSemesterResult)
+router.get("/getSemesterResult", authAdmin, controller.getSemesterResult);
 
-router.post("/upgradeSemester", authAdmin, controller.upgradeSemester)
+router.post("/upgradeSemester", authAdmin, controller.upgradeSemester);
 
-router.get("/getAllNoMainTeacher", authAdmin, controller.getAllNoMainTeacher)
+router.get("/getAllNoMainTeacher", authAdmin, controller.getAllNoMainTeacher);
 
-router.post("/createClassRoom", authAdmin, controller.createClassRoom)
+router.post("/createClassRoom", authAdmin, controller.createClassRoom);
 
-router.post("/deleteClassRoom", authAdmin, controller.deleteClassRoom)
+router.post("/deleteClassRoom", authAdmin, controller.deleteClassRoom);
 
-module.exports = router
+module.exports = router;

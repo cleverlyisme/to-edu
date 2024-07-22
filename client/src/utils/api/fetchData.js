@@ -1,169 +1,210 @@
-import request from "./request"
+import request from "./request";
 
 const renderParams = (root, params) => {
-    if (!params) {
-        return root
-    }
+  if (!params) {
+    return root;
+  }
 
-    let url = `${root}/?`
+  let url = `${root}/?`;
 
-    for (let key of Object.keys(params)) {
-        url += `${key}=${params[key]}&`
-    }
+  for (let key of Object.keys(params)) {
+    url += `${key}=${params[key]}&`;
+  }
 
-    return url
-}
+  return url;
+};
 
 export const getAllUser = (
-    role,
-    searchString = "",
-    filterClass = "",
-    filterGrade = "",
-    filterSubject = "",
-    currentPage = 0
+  role,
+  searchString = "",
+  filterClass = "",
+  filterGrade = "",
+  filterSubject = "",
+  currentPage = 0
 ) =>
-    request.get(
-        renderParams("user/getAllUser", {
-            role,
-            searchString,
-            filterClass,
-            filterGrade,
-            filterSubject,
-            currentPage,
-        })
-    )
+  request.get(
+    renderParams("user/getAllUser", {
+      role,
+      searchString,
+      filterClass,
+      filterGrade,
+      filterSubject,
+      currentPage,
+    })
+  );
 
 export const teacherGetAllStudent = (
-    searchString = "",
-    filterClass = "",
-    currentPage = 0
+  searchString = "",
+  filterClass = "",
+  currentPage = 0
 ) =>
-    request.get(
-        renderParams("user/students", {
-            searchString,
-            filterClass,
-            currentPage,
-        })
-    )
+  request.get(
+    renderParams("user/students", {
+      searchString,
+      filterClass,
+      currentPage,
+    })
+  );
 
-export const getAllClass = () => request.get("information/getAllClass")
+export const getAllFees = (
+  searchString = "",
+  filterGrade = "",
+  filterClass = "",
+  currentPage = 0
+) =>
+  request.get(
+    renderParams("user/fees", {
+      searchString,
+      filterGrade,
+      filterClass,
+      currentPage,
+    })
+  );
 
-export const getAllSubject = () => request.get("information/getAllSubject")
+export const getStudentFees = (
+  { searchString = "", filterStatus = "", currentPage = 0 },
+  id
+) =>
+  request.get(
+    renderParams(`user/student/${id}/fees`, {
+      searchString,
+      filterStatus,
+      currentPage,
+    })
+  );
 
-export const deleteUser = (role, id) => request.delete(`user/${role}/${id}`)
+export const getAllClass = () => request.get("information/getAllClass");
 
-export const getStudentData = (id) => request.get(`user/student/${id}`)
+export const getAllSubject = () => request.get("information/getAllSubject");
 
-export const getTeacherData = (id) => request.get(`user/teacher/${id}`)
+export const deleteUser = (role, id) => request.delete(`user/${role}/${id}`);
 
-export const createStudent = (data) => request.post("user/student/create", data)
+export const deleteFee = (id) => request.delete(`user/student/fee/${id}`);
 
-export const createTeacher = (data) => request.post("user/teacher/create", data)
+export const getStudentData = (id) => request.get(`user/student/${id}`);
 
-export const updateTeacher = (data, id) =>
-    request.put(`user/teacher/${id}`, data)
+export const getTeacherData = (id) => request.get(`user/teacher/${id}`);
+
+export const getFeeData = (id) => request.get(`user/student/fee/${id}`);
+
+export const createStudent = (data) =>
+  request.post("user/student/create", data);
+
+export const createTeacher = (data) =>
+  request.post("user/teacher/create", data);
+
+export const createFee = (data) =>
+  request.post("user/student/fee/create", data);
 
 export const updateStudent = (data, id) =>
-    request.put(`user/student/${id}`, data)
+  request.put(`user/student/${id}`, data);
+
+export const updateTeacher = (data, id) =>
+  request.put(`user/teacher/${id}`, data);
+
+export const updateFee = (data, id) =>
+  request.put(`user/student/fee/${id}`, data);
 
 export const updateProfile = (data, id, role) =>
-    request.put(`user/profile/${role}/${id}`, data)
+  request.put(`user/profile/${role}/${id}`, data);
 
 export const getAllClassOfGrade = (grade) =>
-    request.get(`grade/getAllClassOfGrade/${grade}`)
+  request.get(`grade/getAllClassOfGrade/${grade}`);
 
-export const getAllGrade = () => request.get("grade/getAllGrade")
+export const getAllGrade = () => request.get("grade/getAllGrade");
 
 export const getAllGradeWithMainTeacher = () =>
-    request.get("grade/getAllGradeWithMainTeacher")
+  request.get("grade/getAllGradeWithMainTeacher");
 
 export const getAllHighlight = (searchString = "", currentPage = 0) =>
-    request.get(
-        renderParams("highlight", {
-            searchString,
-            currentPage,
-        })
-    )
+  request.get(
+    renderParams("highlight", {
+      searchString,
+      currentPage,
+    })
+  );
 
 export const getLastestHighlight = () =>
-    request.get("highlight/lastestHighlight")
+  request.get("highlight/lastestHighlight");
 
-export const deleteHighlight = (id) => request.delete(`highlight/${id}`)
+export const deleteHighlight = (id) => request.delete(`highlight/${id}`);
 
-export const getHighlight = (id) => request.get(`highlight/${id}`)
+export const getHighlight = (id) => request.get(`highlight/${id}`);
 
 export const createOrUpdateHighlight = (data) =>
-    request.post(`highlight/create-update`, data)
+  request.post(`highlight/create-update`, data);
 
 export const getClassSchedule = (classRoom) =>
-    request.get(`information/schedule/${classRoom}`)
+  request.get(`information/schedule/${classRoom}`);
 
 export const getStudentTranscript = (studentId) =>
-    request.get(`information/transcript/${studentId}`)
+  request.get(`information/transcript/${studentId}`);
 
 export const getTeacherOfClass = (classRoom) =>
-    request.get(`information/teacher/${classRoom}`)
+  request.get(`information/teacher/${classRoom}`);
 
 export const getTeacherSchedule = (teacherId) =>
-    request.get(`information/teacher/schedule/${teacherId}`)
+  request.get(`information/teacher/schedule/${teacherId}`);
 
-export const getSemester = () => request.get("information/semester")
+export const getSemester = () => request.get("information/semester");
 
 export const updateTranscript = (data) =>
-    request.post("user/student/transcript", data)
+  request.post("user/student/transcript", data);
 
 export const createOrUpdateSchedule = (data) =>
-    request.post("information/createOrUpdateSchedule", data)
+  request.post("information/createOrUpdateSchedule", data);
 
-export const getAdminReport = () => request.get("information/adminReport")
+export const getAdminReport = () => request.get("information/adminReport");
 
-export const getAdminChart = () => request.get("information/adminChart")
+export const getAdminChart = () => request.get("information/adminChart");
 
 export const createOrUpdateEvent = (data) =>
-    request.post("information/createOrUpdateEvent", data)
+  request.post("information/createOrUpdateEvent", data);
 
-export const getEvent = () => request.get("information/event")
+export const getEvent = () => request.get("information/event");
 
-export const deleteEvent = (id) => request.delete(`information/event/${id}`)
+export const deleteEvent = (id) => request.delete(`information/event/${id}`);
 
 export const markOffStudent = (data) =>
-    request.post("information/markoff", data)
+  request.post("information/markoff", data);
 
-export const teacherGetStudentOff = () => request.get("information/studentOff")
+export const teacherGetStudentOff = () => request.get("information/studentOff");
 
 export const sendMessageToMainTeacher = (data) =>
-    request.post("user/student/sendMessageToMainTeacher", data)
+  request.post("user/student/sendMessageToMainTeacher", data);
 
 export const forgetPassword = (data) =>
-    request.post("login/forgetPassword", data)
+  request.post("login/forgetPassword", data);
 
-export const resetPassword = (data) => request.post("login/resetPassword", data)
+export const resetPassword = (data) =>
+  request.post("login/resetPassword", data);
 
 export const changePassword = (data) =>
-    request.post("user/changePassword", data)
+  request.post("user/changePassword", data);
 
 export const updateStudentNote = (data) =>
-    request.post("user/updateStudentNote", data)
+  request.post("user/updateStudentNote", data);
 
 export const getClassTranscript = ({ classRoom, subject }) =>
-    request.get(`information/getClassTranscript/${classRoom}/${subject || ""}`)
+  request.get(`information/getClassTranscript/${classRoom}/${subject || ""}`);
 
 export const finalMark = (data) =>
-    request.post("/user/finalTranscriptSubject", data)
+  request.post("/user/finalTranscriptSubject", data);
 
-export const updateConduct = (data) => request.post("user/updateConduct", data)
+export const updateConduct = (data) => request.post("user/updateConduct", data);
 
-export const getSemesterResult = () => request.get("user/getSemesterResult")
+export const getSemesterResult = () => request.get("user/getSemesterResult");
 
 export const upgradeSemester = (data) =>
-    request.post("user/upgradeSemester", data)
+  request.post("user/upgradeSemester", data);
 
-export const checkUpdateStatus = () => request.get("updateStatus")
+export const checkUpdateStatus = () => request.get("updateStatus");
 
-export const getAllNoMainTeacher = () => request.get("user/getAllNoMainTeacher")
+export const getAllNoMainTeacher = () =>
+  request.get("user/getAllNoMainTeacher");
 
 export const createClassRoom = (data) =>
-    request.post("user/createClassRoom", data)
+  request.post("user/createClassRoom", data);
 
 export const deleteClassRoom = (data) =>
-    request.post("user/deleteClassRoom", data)
+  request.post("user/deleteClassRoom", data);

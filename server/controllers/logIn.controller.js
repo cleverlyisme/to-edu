@@ -16,8 +16,8 @@ const {
   schoolEmail,
 } = require("../utils/constant");
 
-// const sendSms = require("../utils/sendSms");
-// const sendEmail = require("../utils/sendEmail");
+const sendSms = require("../utils/sendSms");
+const sendEmail = require("../utils/sendEmail");
 
 module.exports.logIn = async (req, res) => {
   const role = req.body.role;
@@ -40,6 +40,7 @@ module.exports.logIn = async (req, res) => {
               gender: student.gender,
               grade: student.grade,
               classRoom: student.classRoom,
+              fees: student.fees,
               dateOfBirth: student.dateOfBirth,
               address: student.address,
               note: student.note,
@@ -323,6 +324,7 @@ module.exports.getUserInformation = async (req, res) => {
             father: parent.father,
             mother: parent.mother,
             dayOff: parent[dayOff],
+            fees: parent.fees,
             role: "parent",
           },
         });
@@ -525,7 +527,7 @@ module.exports.forgetPassword = async (req, res) => {
         html: forgetPasswordHtml.replace("$url$", resetPasswordUrl),
       };
 
-      // sendEmail(data)
+      sendEmail(data);
     }
 
     if (isTeacher) {
@@ -558,7 +560,7 @@ module.exports.forgetPassword = async (req, res) => {
         html: forgetPasswordHtml.replace("$url$", resetPasswordUrl),
       };
 
-      // sendEmail(data)
+      sendEmail(data);
     }
 
     if (isParent) {
@@ -590,10 +592,10 @@ module.exports.forgetPassword = async (req, res) => {
 
       const to =
         process.env.ENVIRONMENT === "DEVELOPMENT"
-          ? "+84335210659"
+          ? "+84337223434"
           : phoneNumber.replace("0", "+84");
 
-      //   sendSms(to, body);
+      sendSms(to, body);
     }
 
     res

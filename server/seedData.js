@@ -359,7 +359,7 @@ for (const room of classRoom) {
       studentName: names.studentName,
       password,
       gender: Math.random() > 0.5,
-      grade: Number(room[0]),
+      grade: Number(room.slice(0, 2)),
       classRoom: room,
       dateOfBirth: dateOfBirth(yearNow - (Number(room[0]) + 6)),
       address: renderAddress(),
