@@ -127,6 +127,30 @@ const FeeList = (props) => {
       });
   };
 
+  const handlePayFee = (id) => {
+    // deleteFee(id)
+    //   .then(() =>
+    //     renderNoti({
+    //       title: "Thành công",
+    //       message: "Đã thanh toán học phí",
+    //       type: "success",
+    //     })
+    //   )
+    //   .then(() => getData())
+    //   .catch((err) => {
+    //     renderNoti({
+    //       type: "danger",
+    //       title: "Lỗi",
+    //       message: "Lỗi trong khi thanh toán học phí",
+    //     });
+    //   });
+    renderNoti({
+      type: "danger",
+      title: "Lỗi",
+      message: "Lỗi trong khi thanh toán học phí",
+    });
+  };
+
   return (
     <div>
       <Row className="mb-2">
@@ -262,7 +286,7 @@ const FeeList = (props) => {
                             props.setModal({
                               isOpen: true,
                               message: "Bạn muốn thanh toán học phí này ?",
-                              onConfirm: () => handleDeleteFee(fee._id),
+                              onConfirm: () => handlePayFee(fee._id),
                             });
                           }}
                         />
