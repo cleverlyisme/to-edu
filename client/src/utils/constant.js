@@ -14,7 +14,7 @@ export const subjects = [
 ];
 
 // development base url
-export const BASE_URL = "http://localhost:3001/";
+// export const BASE_URL = "http://localhost:3001/";
 
 // production base url
-// export const BASE_URL = "
+export const BASE_URL = "https://to-edu-server.vercel.app/";
